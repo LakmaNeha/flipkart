@@ -37,6 +37,9 @@ export default function Sidebar({ copyOfData,data, setData }) {
     setData(copyOfData.filter((item)=> size.includes(...item.size)))
   }
  }
+ const clearFilters = () =>{
+  window.location.reload();
+ }
  
 
   return (
@@ -186,6 +189,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
           </ul>
         </div>
       </div>
+      <button onClick={clearFilters}>Clear all</button>
     </div>
   );
 }
