@@ -17,30 +17,48 @@ export default function Sidebar({ copyOfData,data, setData }) {
  
 
  const idealFor = (e) => {
+  
   setGender(e.target.value)
-  if(gender){ 
-    console.log(gender)
-    setData(copyOfData.filter((item)=> item.gender===gender))
+  setData(copyOfData.filter((item)=> item.gender===e.target.value))
   }
    
- }
 
- const getBrands = ()=>{
-    if(brand.length>0){
-      setData(copyOfData.filter((item)=> brand.includes(item.brand)))
+
+ const getBrands = (e)=>{
+  setBrand([...brand, e.target.value]);
+
+    if(e.target.checked){
+      setData(copyOfData.filter((item)=> [...brand, e.target.value].includes(item.brand)))
+      
+    }
+    else{
+      if(brand.includes(e.target.value)){
+        const  updatedBrand = brand.filter((item) => item !== e.target.value)
+        console.log(updatedBrand)
+        setData(copyOfData.filter((item)=> updatedBrand.includes(item.brand)))
+      }
     }
  }
 
- const getSize =()=>{
-  if(size.length>0){
-    console.log(size)
-    setData(copyOfData.filter((item)=> size.includes(...item.size)))
-  }
+ const getSize = (e)=>{
+ 
+
+    if(e.target.checked){
+      setData(copyOfData.filter((item)=> [...size, e.target.value].includes(...item.size)))
+      
+    }
+    else{
+      if(size.includes(e.target.value)){
+        const  updatedSize = size.filter((item) => item !== e.target.value)
+        console.log(updatedSize)
+        setData(copyOfData.filter((item)=> updatedSize.includes(item.size)))
+      }
+    }
  }
  const clearFilters = () =>{
-  window.location.reload();
+  setData(copyOfData)
  }
- 
+ console.log(gender)
 
   return (
     <div className="sidebar">
@@ -67,7 +85,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               id="male"
               name="gender"
               value="male"
-              onChange={idealFor}
+              onChange={(e)=>idealFor(e)}
             ></input>
             <label>Male</label>
           </li>
@@ -78,7 +96,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               id="female"
               name="gender"
               value="female"
-              onChange={idealFor}
+              onChange={(e)=>idealFor(e)}
             ></input>
             <label>Female</label>
           </li>
@@ -93,7 +111,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="XS"
-                onChange={(e) => {setSize([...size, e.target.value]);getSize()}}
+                onChange={(e) => {setSize([...size, e.target.value]);getSize(e)}}
               ></input>
               <label>XS</label>
             </li>
@@ -102,7 +120,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="S"
-                onChange={(e) => {setSize([...size, e.target.value]);getSize()}}
+                onChange={(e) => {setSize([...size, e.target.value]);getSize(e)}}
               ></input>
               <label>S</label>
             </li>
@@ -110,7 +128,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="M"
-                onChange={(e) => {setSize([...size, e.target.value]);getSize()}}
+                onChange={(e) => {setSize([...size, e.target.value]);getSize(e)}}
               ></input>
               <label>M</label>
             </li>
@@ -118,7 +136,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="L"
-                onChange={(e) => {setSize([...size, e.target.value]);getSize()}}
+                onChange={(e) => {setSize([...size, e.target.value]);getSize(e)}}
               ></input>
               <label>L</label>
             </li>
@@ -126,7 +144,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="XL"
-                onChange={(e) => {setSize([...size, e.target.value]);getSize()}}
+                onChange={(e) => {setSize([...size, e.target.value]);getSize(e)}}
               ></input>
               <label>XL</label>
             </li>
@@ -134,7 +152,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="XXL"
-                onChange={(e) => {setSize([...size, e.target.value]);getSize()}}
+                onChange={(e) => {setSize([...size, e.target.value]);getSize(e)}}
               ></input>
               <label>XXL</label>
             </li>
@@ -150,7 +168,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="highlander"
-                onChange={(e) => {setBrand([...brand, e.target.value]);getBrands()}}
+                onChange={(e) => {getBrands(e)}}
               ></input>
               <label>highlander</label>
             </li>
@@ -158,7 +176,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="U.S. POLO ASSN."
-                onChange={(e) => {setBrand([...brand, e.target.value]);getBrands()}}
+                onChange={(e) => {getBrands(e)}}
               ></input>
               <label>U.S. POLO ASSN.</label>
             </li>
@@ -166,7 +184,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="adidas"
-                onChange={(e) => {setBrand([...brand, e.target.value]);getBrands()}}
+                onChange={(e) => {getBrands(e)}}
               ></input>
               <label>adidas</label>
             </li>
@@ -174,7 +192,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="aurelia"
-                onChange={(e) => {setBrand([...brand, e.target.value]);getBrands()}}
+                onChange={(e) => {getBrands(e)}}
               ></input>
               <label>aurelia</label>
             </li>
@@ -182,7 +200,7 @@ export default function Sidebar({ copyOfData,data, setData }) {
               <input
                 type="checkbox"
                 value="only"
-                onChange={(e) => {setBrand([...brand, e.target.value]);getBrands()}}
+                onChange={(e) => {getBrands(e)}}
               ></input>
               <label>only</label>
             </li>
@@ -193,3 +211,4 @@ export default function Sidebar({ copyOfData,data, setData }) {
     </div>
   );
 }
+/*{setBrand([...brand, e.target.value]);getBrands()}*/
